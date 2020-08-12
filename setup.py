@@ -7,7 +7,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='blaseball-reference',
-    version='0.4.1',
+    version='0.4.2',
     author='Joe Maliksi',
     author_email='joe.maliksi@gmail.com',
     url='https://github.com/jmaliksi/blaseball-reference-py',
