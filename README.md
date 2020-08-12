@@ -31,7 +31,7 @@ print(api.batting_average())
 ```
 will print a dictionary of every Blaseball batter and their batting averages, and will not return pitchers.
 ```
-{`batter_id': value'}
+{'batter_id': value'}
 ```
 
 Some queries, (```event_type```) for example, will return every player.
