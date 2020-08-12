@@ -38,12 +38,26 @@ provided as their own lists and are not mapped into their parents, and thus must
     return response.json()
 
 
-def events(player_id=None, game_id=None, pitcher_id=None, batter_id=None, player_events=False, base_runners=False):
+def events(player_id=None,
+           game_id=None,
+           pitcher_id=None,
+           batter_id=None,
+           player_events=False,
+           base_runners=False,
+           type_=None,
+           sort_by=None,
+           sort_direction=None):
     """Get the list of game events that match the query. One of playerId, gameId, pitcherId, batterId must be specified.
 
     Any ID may be a single string UUID or a list of string UUIDs.
-    `player_events`: include PlayerEvents in results.
-    `base_runners`: include BaseRunners in results."""
+    `player_events`: bool Include PlayerEvents in results.
+    `base_runners`: bool Include BaseRunners in results.
+    `sort_by`: str The field by which to sort. Most text and numeric columns are supported.
+    `sort_direction`: str "asc" or "desc".
+    `type_`: event by which to filter.
+
+    Returns an iterator of `GameEvent` objects.
+    """
 
     params = {
         'baseRunners': base_runners,
@@ -60,12 +74,16 @@ def events(player_id=None, game_id=None, pitcher_id=None, batter_id=None, player
     else:
         raise ValueError('No ID specified!')
 
+    if isinstance(type_, GameEvent):
+        type_ = type_.value
+    if type_:
+        params['type'] = type_
+
     response = requests.get(construct_url('events'), params=params)
     response.raise_for_status()
-    game_events = [
-        GameEvent(**event) for event in response.json()['results']
-    ]
-    return game_events
+    results = response.json()['results']
+    for game_event in results:
+        yield GameEvent(**game_event)
 
 
 def count_by_type(event_type, pitcher_id=None, batter_id=None):
