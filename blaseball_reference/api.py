@@ -22,12 +22,17 @@ def prepare_id(id_):
         raise ValueError(f'Incorrect ID type: {type(id_)}')
 
 
-def events(player_id=None, game_id=None, pitcher_id=None, batter_id=None):
+def events(player_id=None, game_id=None, pitcher_id=None, batter_id=None, player_events=False, base_runners=False):
     """Get the list of game events that match the query. One of playerId, gameId, pitcherId, batterId must be specified.
 
-    Any ID may be a single string UUID or a list of string UUIDs."""
+    Any ID may be a single string UUID or a list of string UUIDs.
+    `player_events`: include PlayerEvents in results.
+    `base_runners`: include BaseRunners in results."""
 
-    params = {}
+    params = {
+        'baseRunners': base_runners,
+        'playerEvents': player_events,
+    }
     if player_id:
         params['playerId'] = prepare_id(player_id)
     elif game_id:

@@ -1,5 +1,7 @@
 """GameEvent Model"""
 import enum
+from blaseball_reference.models.base_runner import BaseRunner
+from blaseball_reference.models.player_event import PlayerEvent
 
 
 class EventType(enum.Enum):
@@ -134,6 +136,9 @@ class GameEvent(object):
         The message text descriptions that contributed to this event.
         additional_context	string
         Additional comments.
+
+        base_runners list(BaseRunner)
+        player_events list(PlayerEvent)
         """
         self.id = kwargs.get('id')
         self.game_id = kwargs.get('game_id')
@@ -173,3 +178,10 @@ class GameEvent(object):
         self.is_last_game_event = kwargs.get('is_last_game_event')
         self.event_text = kwargs.get('event_text')  # array
         self.additional_context = kwargs.get('additional_context')
+
+        self.base_runners = [
+            BaseRunner(**base_runner) for base_runner in kwargs.get('base_runners', [])
+        ]
+        self.player_events = [
+            PlayerEvent(**player_event) for player_event in kwargs.get('player_events', [])
+        ]
