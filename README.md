@@ -41,10 +41,13 @@ will print a dictionary of every Blaseball batter and their batting averages, an
 Some queries, ```event_type``` for example, will return every player.
 
 
-You can specify the ID of the player to filter by. Multiple pitchers can also be specified, delimited by commas
+You can specify the ID of the player to filter by. Multiple pitchers can also be specified, by passing a list or a string delimited by commas
 ```
-pitcherera = api.era(pitcher_id)
+pitcherera = api.era("pitcher_id")
 ```
 ```
-pitcherera = api.era(pitcher_id, pitcher_id, pitcher_id)
+pitcherera = api.era(["pitcher_id", "pitcher_id", "pitcher_id"])
+```
+```
+pitcherera = api.era("pitcher_id, pitcher_id, pitcher_id")
 ```
