@@ -2,7 +2,7 @@
 
 import requests
 
-from blaseball_reference.models.game_event import GameEvent
+from blaseball_reference.models.game_event import GameEvent, EventType
 
 API_VERSION = 'v1'
 BASE_URL = 'https://api.blaseball-reference.com'
@@ -50,6 +50,39 @@ def events(player_id=None, game_id=None, pitcher_id=None, batter_id=None, player
         GameEvent(**event) for event in response.json()['results']
     ]
     return game_events
+
+
+def count_by_type(event_type, pitcher_id=None, batter_id=None):
+    """Get the number of events for a batter or pitcher with a certain event_type.
+    `event_type` can be of type `EventType` or a raw string.
+    `pitcher_id` and `batter_id` are optional and can be a single string or list.
+    Returns a dictionary of dictionaries with format:
+    {
+        'pitchers': {
+            pitcher_id: count,
+        },
+        'batters': {
+            batter_id: count,
+        }
+    }
+    """
+    if isinstance(event_type, EventType):
+        event_type = event_type.value
+    params = {
+        'eventType': event_type,
+    }
+    if pitcher_id:
+        params['pitcherId'] = prepare_id(pitcher_id)
+    if batter_id:
+        params['batterId'] = prepare_id(pitcher_id)
+
+    response = requests.get(construct_url('countByType'), params=params)
+    response.raise_for_status()
+    res = response.json()
+    return {
+        'pitchers': {pitcher['pitcher_id']: pitcher['count'] for pitcher in res.get('pitchers', [])},
+        'batters': {batter['batter_id']: batter['count'] for batter in res.get('batters', [])},
+    }
 
 
 def plate_appearances(batter_id=None):
