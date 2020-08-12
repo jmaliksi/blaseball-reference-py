@@ -145,6 +145,7 @@ class GameEvent(object):
         self.batter_id = kwargs.get('batter_id')
         self.batter_team_id = kwargs.get('batter_team_id')
         self.pitcher_id = kwargs.get('pitcher_id')
+        self.pitcher_team_id = kwargs.get('pitcher_team_id')
         self.home_score = kwargs.get('home_score')
         self.away_score = kwargs.get('away_score')
         self.home_strike_count = kwargs.get('home_strike_count')
