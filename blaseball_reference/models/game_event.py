@@ -150,7 +150,7 @@ class GameEvent(object):
         self.home_strike_count = kwargs.get('home_strike_count')
         self.away_strike_count = kwargs.get('away_strike_count')
         self.batter_count = kwargs.get('batter_count')
-        self.pitches = kwargs.get('pitches')
+        self.pitches = kwargs.get('pitches')  # array
         self.total_strikes = kwargs.get('total_strikes')
         self.total_balls = kwargs.get('total_balls')
         self.total_fouls = kwargs.get('total_fouls')
@@ -170,5 +170,5 @@ class GameEvent(object):
         self.errors_on_play = kwargs.get('errors_on_play')
         self.batter_base_after_play = kwargs.get('batter_base_after_play')
         self.is_last_game_event = kwargs.get('is_last_game_event')
-        self.event_text = kwargs.get('event_text')
+        self.event_text = kwargs.get('event_text')  # array
         self.additional_context = kwargs.get('additional_context')
