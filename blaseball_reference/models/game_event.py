@@ -63,7 +63,7 @@ class PitchType(enum.Enum):
     HIT_BY_PITCH = 'H'
     UNKNOWN_STRIKE = 'K'
     UNKNOWN_OR_MISSING = 'U'
-    HIT_OR_OUT = 'X'
+    HIT = 'X'
 
     @classmethod
     def from_key(cls, key):
