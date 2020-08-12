@@ -22,6 +22,17 @@ def prepare_id(id_):
         raise ValueError(f'Incorrect ID type: {type(id_)}')
 
 
+def raw_events():
+    """
+    Download all of the game events, base runners, and player events. Child data (base runners, player events) are
+provided as their own lists and are not mapped into their parents, and thus must be matched by game_event_id.
+    """
+    response = requests.get(construct_url('data/events'))
+    response.raise_for_status()
+    # I'm not going to try to format a raw data dump. This is on you.
+    return response.json()
+
+
 def events(player_id=None, game_id=None, pitcher_id=None, batter_id=None, player_events=False, base_runners=False):
     """Get the list of game events that match the query. One of playerId, gameId, pitcherId, batterId must be specified.
 
