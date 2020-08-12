@@ -75,7 +75,7 @@ def events(player_id=None,
         raise ValueError('No ID specified!')
 
     if isinstance(type_, GameEvent):
-        type_ = type_.value
+        type_ = type_.name
     if type_:
         params['type'] = type_
 
@@ -101,7 +101,7 @@ def count_by_type(event_type, pitcher_id=None, batter_id=None):
     }
     """
     if isinstance(event_type, EventType):
-        event_type = event_type.value
+        event_type = event_type.name
     params = {
         'eventType': event_type,
     }

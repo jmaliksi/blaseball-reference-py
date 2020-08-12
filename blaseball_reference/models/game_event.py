@@ -41,6 +41,34 @@ class BattedBallType(enum.Enum):
         }.get(key, None)
 
 
+class PitchType(enum.Enum):
+    CALLED_STRIKE = 'C'
+    SWINGING_STRIKE = 'S'
+    BALL = 'B'
+    FOUL = 'F'
+    PICKOFF_FIRST = '1'
+    PICKOFF_SECOND = '2'
+    PICKOFF_THIRD = '3'
+    PICKOFF_FOURTH = '4'
+    FOUL_BUNT = 'L'
+    MISSED_BUNT = 'M'
+    SWINGING_STRIKE_ON_PITCHOUT = 'Q'
+    FOUL_BALL_ON_PITCHOUT = 'R'
+    INTENTIONAL_BALL = 'I'
+    PITCHOUT = 'P'
+    HIT_BY_PITCH = 'H'
+    UNKNOWN_STRIKE = 'K'
+    UNKNOWN_OR_MISSING = 'U'
+    HIT_OR_OUT = 'X'
+
+    @classmethod
+    def from_key(cls, key):
+        for e in cls:
+            if e.value == key:
+                return e
+        return None
+
+
 class GameEvent(object):
     """
     Represents an event in a Blaseball game.
@@ -156,7 +184,7 @@ class GameEvent(object):
         self.home_strike_count = kwargs.get('home_strike_count')
         self.away_strike_count = kwargs.get('away_strike_count')
         self.batter_count = kwargs.get('batter_count')
-        self.pitches = kwargs.get('pitches')  # array
+        self.pitches = [PitchType.from_key(p) for p in kwargs.get('pitches', [])]  # array
         self.total_strikes = kwargs.get('total_strikes')
         self.total_balls = kwargs.get('total_balls')
         self.total_fouls = kwargs.get('total_fouls')
