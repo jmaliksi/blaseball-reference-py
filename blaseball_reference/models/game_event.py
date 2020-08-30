@@ -199,6 +199,7 @@ class GameEvent(object):
         self.bases_hit = kwargs.get('bases_hit')
         self.runs_batted_in = kwargs.get('runs_batted_in')
         self.is_sacrifice_hit = kwargs.get('is_sacrifice_hit')
+        self.is_sacrifice_fly = kwargs.get('is_sacrifice_fly')
         self.outs_on_play = kwargs.get('outs_on_play')
         self.is_double_play = kwargs.get('is_double_play')
         self.is_triple_play = kwargs.get('is_triple_play')
