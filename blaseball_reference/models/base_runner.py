@@ -28,7 +28,7 @@ class BaseRunner(object):
         self.id = kwargs.get('id')
         self.game_event_id = kwargs.get('game_event_id')
         self.runner_id = kwargs.get('runner_id')
-        self.responseible_pitcher_id = kwargs.get('responsible_pitcher_id')
+        self.responsible_pitcher_id = kwargs.get('responsible_pitcher_id')
         self.base_before_play = kwargs.get('base_before_play')
         self.base_after_play = kwargs.get('base_after_play')
         self.was_base_stolen = kwargs.get('was_base_stolen')
