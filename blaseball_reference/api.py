@@ -1,5 +1,5 @@
 """API for api dot blaseball-reference dot com"""
-
+from collections import OrderedDict
 import requests
 
 from blaseball_reference.models.game_event import GameEvent, EventType
@@ -22,7 +22,7 @@ def prepare_id(id_):
         raise ValueError(f'Incorrect ID type: {type(id_)}')
 
 
-def raw_events(**kwargs):
+def raw_events(season, **kwargs):
     """
     Download all of the game events, base runners, and player events. Child data (base runners, player events) are
 provided as their own lists and are not mapped into their parents, and thus must be matched by game_event_id.
@@ -32,7 +32,7 @@ provided as their own lists and are not mapped into their parents, and thus must
     """
     if not kwargs.get('are_you_sure'):
         raise Exception('Please mind the datablase.')
-    response = requests.get(construct_url('data/events'))
+    response = requests.get(construct_url('data/events'), params={'season': season})
     response.raise_for_status()
     # I'm not going to try to format a raw data dump. This is on you.
     return response.json()
@@ -343,3 +343,19 @@ def era(pitcher_id=None):
     return {
         pitcher['id']: pitcher['value'] for pitcher in response.json()['results']
     }
+
+
+def player_attrs(player_id):
+    """Get the current player attrs for a given player."""
+    params['playerId'] = player_id
+    response = requests.get(construct_url('playerAttrs'), params=params)
+    response.raise_for_status()
+    return response.json()
+
+
+def current_roster(team_id):
+    """Get the current roster for a given team."""
+    params['teamId'] = team_id
+    response = requests.get(construct_url('current_roster'), params=params)
+    response.raise_for_status()
+    return response.json()
