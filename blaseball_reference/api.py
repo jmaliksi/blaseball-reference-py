@@ -347,7 +347,9 @@ def era(pitcher_id=None):
 
 def player_attrs(player_id):
     """Get the current player attrs for a given player."""
-    params['playerId'] = player_id
+    params = {
+        'playerId': player_id,
+    }
     response = requests.get(construct_url('playerAttrs'), params=params)
     response.raise_for_status()
     return response.json()
@@ -355,7 +357,9 @@ def player_attrs(player_id):
 
 def current_roster(team_id):
     """Get the current roster for a given team."""
-    params['teamId'] = team_id
+    params = {
+        'teamId': team_id,
+    }
     response = requests.get(construct_url('current_roster'), params=params)
     response.raise_for_status()
     return response.json()
