@@ -363,3 +363,28 @@ def current_roster(team_id):
     response = requests.get(construct_url('current_roster'), params=params)
     response.raise_for_status()
     return response.json()
+
+
+def season_leaders(season, category, stat, order=None, limit=None):
+    params = {}
+    params["season"] = season
+    params["category"] = category
+    params["stat"] = stat
+    if order:
+        params["order"] = order
+    if limit:
+        params["limit"] = limit
+    response = requests.get(construct_url('seasonLeaders'), params=params)
+    response.raise_for_status()
+    return response.json()
+
+
+def player_stats(player_ids, category, season=None):
+    params = {}
+    params["playerIds"] = prepare_id(player_ids)
+    params["category"] = category
+    if season:
+        params["season"] = season
+    response = requests.get(construct_url('playerStats'), params=params)
+    response.raise_for_status()
+    return response.json()
