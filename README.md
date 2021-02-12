@@ -1,4 +1,6 @@
-# blaseball-reference-py
+# DEPRECATED blaseball-reference-py
+DEPRECATED: This package is no longer being maintained. Datablase wrappers are being further developed in `blaseball-mike`. https://github.com/jmaliksi/blaseball-mike
+
 Python wrapper around the Blaseball stats API
 
 # Installation
